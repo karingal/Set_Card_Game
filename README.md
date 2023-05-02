@@ -20,17 +20,24 @@ The game contains a deck of 81 cards. Each card contains a drawing with four fea
 
 For example:
 
-image image image
+![image](https://user-images.githubusercontent.com/104310099/235738688-8d6d66a6-52c8-455b-8835-34a6a7a198b1.png)
+![image](https://user-images.githubusercontent.com/104310099/235738799-b8da304a-0295-413b-bb69-312228c41f6d.png)
+![image](https://user-images.githubusercontent.com/104310099/235738844-0c7ae6e9-0267-461b-a007-2410d82ccd5c.png)
+
+
 
 Example1: these 3 cards do form a set, because the shadings of the three cards are all the same, while the numbers, the colors, and the shapes are all different.
 
-image image image
+![image](https://user-images.githubusercontent.com/104310099/235739267-64b831c1-87de-475a-8375-75fc8f43e3db.png)
+![image](https://user-images.githubusercontent.com/104310099/235739284-c286d8ea-71c3-4615-8385-56a34c76a6ed.png)
+![image](https://user-images.githubusercontent.com/104310099/235739302-c0fd79c9-30d6-4ef5-aa8b-070883a507ef.png)
+
 
 Example 2: these 3 cards do not form a set (although the numbers of the three cards are all the same, and the colors, and shapes are all different, only two cards have the same shading). The game's active (i.e., initiate events) components contain the dealer and the players.
 
 The players play together simultaneously on the table, trying to find a legal set of 3 cards. They do so by placing tokens on the cards, and once they place the third token, they should ask the dealer to check if the set is legal. If the set is not legal, the player gets a penalty, freezing his ability of removing or placing his tokens for a specified time period. If the set is a legal set, the dealer will discard the cards that form the set from the table, replace them with 3 new cards from the deck and give the successful player one point. In this case the player also gets frozen although for a shorter time period. To keep the game more interesting and dynamic, and in case no legal sets are currently available on the table, once every minute the dealer collects all the cards from the table, reshuffles the deck and draws them anew. The game will continue as long as there is a legal set to be found in the remaining cards (that are either on table or in the deck). When there is no legal set left, the game will end and the player with the most points will be declared as the winner! Each player controls 12 unique keys on the keyboard as follows. The default keys are:
 
-Screen Shot 2023-02-20 at 17 57 47
+![image](https://user-images.githubusercontent.com/104310099/235739351-d8b81f27-f453-49ba-8841-86b74fd488b7.png)
 
 The keys layout is the same as the table's cards slots (3x4), and each key press dispatches the respective player’s action, which is either to place/remove a token from the card in that slot - if a card is not present/present there. The game supports 2 player types: human and non-human. The input from the human players is taken from the physical keyboard as an input. The non-human players are simulated by threads that continually produce random key presses.
 
@@ -76,6 +83,8 @@ When dealing cards to the table and collecting cards from the table the dealer t
 Checking user sets should be done “fairly” – if 2 players try to claim a set at roughly the same time, they should be serviced by the dealer in “first come first served” (FIFO) order. Any kind of synchronization mechanism used for this specific part of the program must take this into consideration.
 4.7 PROGRAM EXECUTION / FLOW
 
-Following is a diagram of the general flow of the program3. Following this flow should provide a fluent game experience and should also produce the correct event log output. Note that this diagram only describes the general flow. It does not address how to handle synchronization, graphic display updates and such. image
+Following is a diagram of the general flow of the program3. Following this flow should provide a fluent game experience and should also produce the correct event log output. Note that this diagram only describes the general flow. It does not address how to handle synchronization, graphic display updates and such. 
+![image](https://user-images.githubusercontent.com/104310099/235739442-95ecdcdf-f614-4613-862f-baa87b05e496.png)
+
 
 In this implementation the threads do not wake up unless some actual job needs to be done (e.g., a value needs to be changed on the display, key input needs to be handled, etc.) and the only threads created are: 1 thread per player + 1 additional thread for non-human players.
